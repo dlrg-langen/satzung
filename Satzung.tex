@@ -2,11 +2,11 @@
 12pt, % Schriftgroesse
 a4paper, % Papiergroesse
 headsepline, % Kopfzeilenlinie
-footsepline, % Fusszeilenlinie
+%footsepline, % Fusszeilenlinie
 parskip, % Abstand zw. Absaetzen
 headings=normal, % etw. kleinere Ueberschriften
 %draft % Testkram
-]{scrartcl}
+]{scrreprt}
 % Wir benutzen UTF8 und T1
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -36,36 +36,92 @@ headings=normal, % etw. kleinere Ueberschriften
 \usepackage{enumitem}
 % Weniger Margins
 %\usepackage[cm,myheadings]{fullpage}
-\usepackage[a4paper,margin=2cm,footskip=1cm]{geometry}
+\usepackage[automark]{scrpage2} % Kopf- und Fusszeilen
+\clearscrheadings 
+\clearscrplain 
+
+\ihead{\headmark} % header inside: chapter and section titles 
+\ofoot[\pagemark]{\pagemark} % footer outsite: page numbers on plain pages 
+
+\automark[section]{chapter} %[right]{left} 
+\setheadsepline{.4pt}[\color{black}] % configures the line below the header 
+
+\usepackage[a4paper,margin=2cm,bottom=3cm,footskip=2.3cm]{geometry}
+% DLRG-Schrift
+\usepackage{fontspec}
+\setmainfont{DLRG Univers 55 Roman}
+
+\usepackage{xcolor}
+\usepackage{sectsty}
+\definecolor{dlrgrot}{HTML}{e30613}
+\chapterfont{\color{dlrgrot}}  % sets colour of chapters
+\sectionfont{\color{dlrgrot}}  % sets colour of sections
+\makeatletter
+\newcommand\HUGE{\@setfontsize\Huge{38}{47}} 
+\makeatother
+
+% Hintergrund
+\usepackage{eso-pic}
+
+\newcommand\TitleBackground{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{Hintergrund_Titelseite}%
+\vfill
+}}}
+
+\newcommand\ContentBackground{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{Hintergrund_Inhaltsseite}%
+\vfill
+}}}
 
 % Metainformationen
 \author{DLRG Ortsgruppe Langen~e.V.}
-\title{Satzung}
+\title{Satzung der DLRG Ortsgurppe Langen e.V.}
 \subtitle{}
-\date{}
+\date{6. März 2020}
 \subject{}
-\publishers{%
-im Bereich des\\
-Bezirkes Cuxhaven--Osterholz e.V.\\ 
-des\\
-LV Niedersachsen e.V.\\
-der\\
-Deutschen Lebens--Rettungs--Gesellschaft e.V.
-}
+\publishers{}
 
 \renewcommand{\thesection}{\S~\arabic{section}}
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\autodot}{}
 \sisetup{quotient-mode = fraction,fraction-function = \sfrac}
 \setlist[itemize]{noitemsep}
 
 \pagestyle{scrheadings}
 
 \begin{document}
-\maketitle
-\vspace{-0.3cm}
+\begin{titlepage}
+\makeatletter
+\AddToShipoutPicture*{\TitleBackground}
 
-\addsec{Präambel}
+{\color{dlrgrot}\HUGE \textbf{Satzung}\par}
+{\color{dlrgrot}\Large \textbf{der DLRG Ortsgruppe Langen e.V.}\par}
+{\color{dlrgrot}\large im Bereich des\par}
+{\color{dlrgrot}\large Bezirkes Cuxhaven--Osterholz e.V.\par}
+{\color{dlrgrot}\large im Bereich des\par}
+{\color{dlrgrot}\large Landesverbandes Niedersachsen e.V.\par}
+{\color{dlrgrot}\large der\par}
+{\color{dlrgrot}\large Deutschen Lebens-Rettungs-Gesellschaft e.V.\par}
+\vfill
+{\color{dlrgrot}Stand: \@date}
+\makeatother
+\end{titlepage}
+
+\addchap{Präambel}
+\AddToShipoutPicture{\ContentBackground}
 Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige und führende Wasserrettungsorganisation Deutschlands und der Welt. In ihr finden alle Mitglieder und Gliederungen eine ehrenamtlich und humanitär wirkende Gesellschaft zur Verhinderung von Ertrinkungsfällen vor. Alle Gliederungen, die den Namen der DLRG führen, erkennen den bindenden Charakter dieser Gesellschaft an und verpflichten sich, ihr ganzes Tun und Handeln im Sinne dieser bundesweiten Gesellschaft auszurichten. Gegenseitiges Vertrauen, Glaubwürdigkeit, gemeinschaftliches Handeln sowie die Übereinstimmung von Wort und Tat bilden die Grundlage des verbandlichen Umgangs. Sie begründen die menschliche Qualität der Mitglieder und die Stärke der DLRG.
 
+\chapter{Name, Sitz, Zweck}
 \section{Name, Sitz}
 \label{sec:name_sitz}
 \begin{enumerate}
@@ -106,10 +162,12 @@ Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige 
     \item Für Dienstleistungen, die die DLRG--Ortsgruppe Langen e.V. im Rahmen des Satzungszwecks (\ref{sec:zweck}, Abs. 2 und 3) erbringt, kann von Dritten ein Entgelt verlangt werden; dessen Höhe sich nach der Gebührenordnung richtet, die der Landesverbandsrat erlässt.
 \end{enumerate}
 
+\chapter{Mitgliedschaft und Gliederung}
+\setcounter{section}{3}
 \section{Mitgliedschaft}
 \label{sec:mitgliedschaft}
 \begin{enumerate}
-    \item Mitglieder der DLRG-Ortsgruppe Langen~e.V. können natürliche und juristische Personen des Privatrechtes und des öffentlichen Rechtes werden. Sie erkennen durch ihre schriftliche Eintrittserklärung diese Satzung und die geltenden Ordnungen der DLRG an und übernehmen alle sich daraus ergebenden Rechte und Pflichten.
+    \item Mitglieder der DLRG-Ortsgruppe Langen~e.V. können natürliche und juristische Personen des Privatrechtes und des öffentlichen Rechtes werden. Sie erkennen durch ihre Eintrittserklärung in Textform (z. B. durch Beitrittsformular auf der Website) diese Satzung und die geltenden Ordnungen der DLRG an und übernehmen alle sich daraus ergebenden Rechte und Pflichten.
     \item Über die Aufnahme als Mitglied entscheidet der Vorstand. Ein Aufnahmeantrag gilt als angenommen, wenn er nicht bis zum Ablauf des Folgemonats abgelehnt wird.
     \item Das Mitglied wird gegenüber der übergeordneten Gliederung durch die gewählten Delegierten der DLRG--Ortsgruppe Langen~e.V. vertreten.
     \item Die Ausübung der Mitgliedsrechte ist davon abhängig, dass die Beitragszahlung für das laufende oder mindestens für das vorausgegangene Geschäftsjahr nachgewiesen ist.
@@ -143,12 +201,13 @@ Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige 
     \item Der Vorstand wird im Jugendvorstand durch eines seiner Mitglieder vertreten.
 \end{enumerate}
 
-
+\chapter{Organe und Gremien}
+\setcounter{section}{5}
 \section{Jahreshauptversammlung}
 \label{sec:jahreshauptversammlung}
 \begin{enumerate}
     \item Die Jahreshauptversammlung gibt die Richtlinien für die Tätigkeit der DLRG--Ortsgruppe Langen~e.V. und behandelt grundsätzliche Angelegenheiten, nimmt die Berichte des Vorstandes und der Revisoren entgegen und ist zuständig für: \begin{enumerate}[noitemsep]
-        \item Wahl der Mitglieder des Vorstandes und deren Stellvertreter gem. \ref{sec:vorstand},
+        \item Wahl der Mitglieder des Vorstandes und deren Stellvertreter gem. \ref{sec:vorstand} Abs. 2 a) bis i),
         \item Wahl von zwei Revisoren und deren Stellvertreter,
         \item Wahl der Delegierten und deren Stellvertreter zur Bezirkstagung des übergeordneten Bezirkes,
         \item Wahl des weiteren Mitgliedes der DLRG--Ortsgruppe Langen~e.V. im Bezirksrat des übergeordneten Bezirkes und dessen Stellvertreter,
@@ -181,27 +240,28 @@ Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige 
     \item Den Vorstand bilden:\begin{enumerate}[noitemsep]
         \item Vorsitzende(r),
         \item Zweite(r) Vorsitzende(r),
-        \item Schatzmeister(in) oder Stellvertreter(in),
-        \item Leiter(in) Ausbildung oder Stellvertreter(in),
-        \item Leiter(in) Einsatz oder Stellvertreter(in),
+        \item Schatzmeister(in),
+        \item Leiter(in) Ausbildung,
+        \item Leiter(in) Einsatz,
+        \item Arzt/Ärztin,
+        \item Leiter(in) der Öffentlichkeitsarbeit,
+        \item Justitiar(in),
+        \item bis zu drei Beisitzer(innen),
         \item Vorsitzende(r) der DLRG-Jugend oder ein(e) Stellvertreter(in).
-      \end{enumerate}
-      \setcounter{enumii}{7}
-      Er kann erweitert werden höchstens um: \begin{enumerate}[noitemsep]
-          \item Arzt/Ärztin oder Stellvertreter(in),
-          \item Leiter(in) der Öffentlichkeitsarbeit oder Stellvertreter(in),
-          \item Justitiar(in) oder Stellvertreter(in),
-          \item drei Beisitzer(innen).
-        \end{enumerate}
+    \end{enumerate}
+    Die Ämter zu Abs. 2 c) bis h) haben je eine(n) Stellvertreter(in).
     \item Vorstand im Sinne des \S 26 BGB sind der Vorsitzende und zweite Vorsitzende; jeder ist allein vertretungsberechtigt. Vereinsintern ist vereinbart, dass der zweite Vorsitzende nur im nicht nachweispflichtigen Verhinderungsfalle des Vorsitzenden vertretungsberechtigt ist.
     \item Die Mitglieder des Vorstandes sowie deren Stellvertreter werden von der Jahreshauptversammlung, auf der Wahlen gemäß \ref{sec:jahreshauptversammlung} Abs. 1 anstehen, gewählt. Die Amtszeit der Mitglieder des Vorstandes sowie deren Stellvertreter endet mit der Feststellung des Ergebnisses der jeweiligen Neuwahl.
     \item Eine Personalunion zwischen mehreren Vorstandsämtern ist möglich. Ausgeschlossen ist eine Personalunion zwischen dem Vorstand gem. \S 26 BGB (OG--Satzung \ref{sec:vorstand}, Abs. 3) und dem Schatzmeister oder Stellvertreter.
     \item Die Mitglieder des Vorstandes führen ihre Ämter nach Richtlinien, die sich der Vorstand gibt.
     \item Für bestimmte Arbeitsgebiete kann der Vorstand Beauftragte berufen; ihre Amtszeit endet spätestens mit der ihres zuständigen Vorstandsmitgliedes.
     \item Über den Inhalt jeder Sitzung des Vorstandes ist ein Protokoll anzufertigen, vom Sitzungsleiter und Protokollführer zu unterzeichnen und den Vorstandsmitgliedern spätestens mit der Einladung zur nächsten Vorstandssitzung zuzuleiten.
-
+    \item Die Beschlussfassung des Vorstandes erfolgt in Vorstandssitzungen, zu denen der/die Vorsitzende(r) nach Bedarf einlädt. Die Teilnahme an einer Vorstandssitzung ist auch durch Telefonkonferenz oder ähnliche Mittel möglich, sofern diese Möglichkeit mit der Einladung bekannt gegeben wurde.
+    \item Im Einzelfall sind auf Anordnung des/der Vorsitzenden die Beschlussfassungen über einzelne Gegenstände im Umlaufverfahren per E-Mail, im Rahmen einer Telefonkonferenz oder im Rahmen einer Online-Versammlung möglich. Es gelten, soweit nachfolgend nichts anderes bestimmt wird, die Bestimmungen dieser Satzung. Beschlüsse im Umlaufverfahren per E-Mail sind nur gültig, sofern alle Vorstandsmitglieder diesem in Textform zustimmen.
 \end{enumerate}
 
+\chapter{Allgemeine Vorschriften}
+\setcounter{section}{7}
 \section{Verhältnis zum Landesverband Niedersachsen e.V. und zum übergeordneten Bezirk}
 \label{sec:verhaeltnis}
 \begin{enumerate}
@@ -213,8 +273,8 @@ Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige 
         \item Vorstandsmitglieder der Deutschen Lebens--Rettungs--Gesellschaft~e.V., des Landesverbandes Niedersachsen~e.V. der DLRG sowie des übergeordneten Bezirkes haben das Recht, an den Jahreshauptversammlungen sowie Zusammenkünften der Organe der DLRG--Ortsgruppe Langen~e.V. teilzunehmen; ihnen ist auf Wunsch das Wort zu erteilen.
       \end{enumerate}
     \item Nach Abschluss des Geschäftsjahres sind dem übergeordneten Bezirk zuzuleiten: \begin{enumerate}[noitemsep]
-        \item Technischer Bericht,
-        \item Beitragsrechnung,
+        \item Statistischer Jahresbericht,
+        \item Mitgliederstatistik,
         \item Jahresabschluss nebst angeordneten Unterlagen,
         \item aus sämtlichen fälligen Zahlungsverpflichtungen gegenüber dem übergeordneten Bezirk zu zahlende Beiträge,
         \item Nachweis der Erledigung von Auflagen, deren Befolgung von Organen des Landesverbandes Niedersachsen~e.V. der DLRG oder des übergeordneten Bezirkes verlangt worden ist.
@@ -271,6 +331,8 @@ Die DLRG bildet durch ihre Mitglieder und Gliederungen die größte freiwillige 
 \label{sec:vereinsorgan}
 Die DLRG--Ortsgruppe Langen~e.V. kann ein offizielles Vereinsorgan herausgeben.
 
+\chapter{Schlussbestimmungen}
+\setcounter{section}{12}
 \section{Satzungsänderungen}
 \label{sec:satzungsaenderungen}
 \begin{enumerate}
@@ -284,7 +346,7 @@ Die DLRG--Ortsgruppe Langen~e.V. kann ein offizielles Vereinsorgan herausgeben.
 \label{sec:aufloesung}
 \begin{enumerate}
     \item Die Auflösung der DLRG Ortsgruppe Langen~e.V. kann nur in einer zu diesem Zweck mindestens sechs Wochen vorher einberufenen außerordentlichen Jahreshauptversammlung mit einer Mehrheit von \num{3/4} der anwesenden Stimmberechtigten beschlossen werden.
-    \item Bei Auflösung der DLRG Ortsgruppe Langen~e.V. oder bei Wegfall steuerbegünstigter Zwecke fällt ihr Vermögen an den übergeordneten Bezirk. Für den Fall, dass der Bezirk das Vermögen nicht übernimmt, fällt dieses an den Landesverband e.V. der DLRG, der es unmittelbar und ausschließlich für gemeinnützige Zwecke zu verwenden hat.
+    \item Bei Auflösung der DLRG Ortsgruppe Langen~e.V. oder bei Wegfall steuerbegünstigter Zwecke fällt ihr Vermögen an den übergeordneten Bezirk. Für den Fall, dass der Bezirk das Vermögen nicht übernimmt, fällt dieses an den Landesverband Niedersachsen e.V. der DLRG, der es unmittelbar und ausschließlich für gemeinnützige Zwecke zu verwenden hat.
 \end{enumerate}
 
 \section{Inkrafttreten der Satzung}
@@ -292,7 +354,8 @@ Die DLRG--Ortsgruppe Langen~e.V. kann ein offizielles Vereinsorgan herausgeben.
 \begin{enumerate}
     \item Die Satzung bedarf zu ihrer Wirksamkeit der Zustimmung des Vorstandes des Landesverbandes Niedersachsen e.V. der DLRG.
     \item Die Satzung ist am 28.01.2002 auf der Jahreshauptversammlung der DLRG Ortsgruppe Langen~e.V. beschlossen und am \hspace{1.5cm} unter der Nr. 616 in das Vereinsregister des Amtsgerichts Langen eingetragen worden.\\
-      Die Satzung ist durch Beschluss der Jahreshauptversammlung vom xx.yy.xxxx geändert in der Präambel sowie den \S\S 1 (\nameref{sec:name_sitz}), 2 (\nameref{sec:zweck}), 3 (\nameref{sec:gemeinnuetzigkeit}), 4 (\nameref{sec:mitgliedschaft}), 5 (\nameref{sec:jugend}), 6 (\nameref{sec:jahreshauptversammlung}), 7 (\nameref{sec:vorstand}), 8 (\nameref{sec:verhaeltnis}), 9 (\nameref{sec:ordnungsbestimmungen}), 10 (\nameref{sec:ordnungen}), 11 (\nameref{sec:material}), 13 (\nameref{sec:satzungsaenderungen}) und 14 (\nameref{sec:aufloesung}). Die Änderung wurde im Vereinsregister unter der Nr. VR~110322 des Amtsgerichts Tostedt eingetragen.
+      Die Satzung ist durch Beschluss der Jahreshauptversammlung vom 11.3.2016 geändert in der Präambel sowie den \S\S 1 (\nameref{sec:name_sitz}), 2 (\nameref{sec:zweck}), 3 (\nameref{sec:gemeinnuetzigkeit}), 4 (\nameref{sec:mitgliedschaft}), 5 (\nameref{sec:jugend}), 6 (\nameref{sec:jahreshauptversammlung}), 7 (\nameref{sec:vorstand}), 8 (\nameref{sec:verhaeltnis}), 9 (\nameref{sec:ordnungsbestimmungen}), 10 (\nameref{sec:ordnungen}), 11 (\nameref{sec:material}), 13 (\nameref{sec:satzungsaenderungen}) und 14 (\nameref{sec:aufloesung}). Die Änderung wurde im Vereinsregister unter der Nr. VR~110322 des Amtsgerichts Tostedt eingetragen.\\
+      Die Satzung ist durch Beschluss der Jahreshauptversammlung vom 6.3.2020 geändert in den \S\S 4 (\nameref{sec:mitgliedschaft}), 6 (\nameref{sec:jahreshauptversammlung}), 7 (\nameref{sec:vorstand}), 8 (\nameref{sec:verhaeltnis}) und 14 (\nameref{sec:aufloesung}). Die Änderung wurde im Vereinsregister unter der Nr. VR~110322 des Amtsgerichts Tostedt eingetragen.
 \end{enumerate}
 
 \end{document}
