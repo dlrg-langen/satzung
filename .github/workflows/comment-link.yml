@@ -1,0 +1,19 @@
+name: Comment artifact link
+on:
+  workflow_run:
+    workflows: ['Build LaTeX document']
+    types: [completed]
+
+jobs:
+  add_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: add link
+        uses: tonyhallett/artifacts-url-comments@v1.1.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            prefix: 'Das PDF, das aus diesem PR generiert wird:'
+            suffix: .
+            format: name
+            addTo: pull
